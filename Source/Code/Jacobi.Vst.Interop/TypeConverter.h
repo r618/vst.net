@@ -1,4 +1,5 @@
 #pragma once
+#using <System.Drawing.dll>
 
 class TypeConverter
 {

@@ -2,6 +2,8 @@
 
 #pragma once
 
+#using <System.Drawing.dll>
+
 #include "../pch.h"
 #include "UnmanagedArray.h"
 #include "../MemoryTracker.h"

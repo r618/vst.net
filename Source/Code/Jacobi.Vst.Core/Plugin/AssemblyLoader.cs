@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using System.Runtime.Loader;
 
 namespace Jacobi.Vst.Core.Plugin
 {
@@ -10,24 +9,9 @@ namespace Jacobi.Vst.Core.Plugin
     /// </summary>
     public class AssemblyLoader
     {
-        private readonly AssemblyLoadContext _loadContext;
-
         private AssemblyLoader()
         {
-            _loadContext = AssemblyLoadContext.GetLoadContext(this.GetType().Assembly)
-                ?? throw new InvalidOperationException();
-            _loadContext.Resolving += LoadContext_ResolvingAssembly;
             BasePath = String.Empty;
-        }
-
-        private Assembly? LoadContext_ResolvingAssembly(AssemblyLoadContext assemblyLoadContext, AssemblyName assemblyName)
-        {
-            var name = assemblyName.Name;
-            if (!String.IsNullOrEmpty(name))
-            {
-                return LoadAssembly(name, ".dll");
-            }
-            return null;
         }
 
         private static readonly AssemblyLoader _current = new AssemblyLoader();
@@ -55,7 +39,7 @@ namespace Jacobi.Vst.Core.Plugin
 
             if (!String.IsNullOrEmpty(filePath) && File.Exists(filePath))
             {
-                return _loadContext.LoadFromAssemblyPath(filePath);
+                return Assembly.LoadFile(filePath);
             }
 
             return null;

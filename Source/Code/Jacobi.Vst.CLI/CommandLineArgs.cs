@@ -172,7 +172,7 @@ namespace Jacobi.Vst.CLI
 
             public bool IsArgument
             {
-                get { return Current.StartsWith('-'); }
+                get { return Current.StartsWith("-"); }
             }
 
             public string Current

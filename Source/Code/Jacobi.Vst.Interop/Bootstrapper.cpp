@@ -9,15 +9,7 @@
 
 Bootstrapper::Bootstrapper(System::String^ basePath)
 {
-	//_loadContext = System::Runtime::Loader::AssemblyLoadContext::GetLoadContext(GetType()->Assembly);
-	//_loadContext = System::Runtime::Loader::AssemblyLoadContext::CurrentContextualReflectionContext;
-	_loadContext = System::Runtime::Loader::AssemblyLoadContext::Default;
-	_loadContext->Resolving += gcnew System::Func<
-		System::Runtime::Loader::AssemblyLoadContext^, 
-		System::Reflection::AssemblyName^, 
-		System::Reflection::Assembly^>(this, &Bootstrapper::ResolveAssembly);
-
-	_paths = gcnew System::Collections::Generic::List<System::String^>();
+	_paths = gcnew System::Collections::Generic::List<System::String^>(10);
 	_paths->Add(basePath);
 	_paths->Add(System::IO::Path::Combine(basePath, "bin"));
 }
@@ -29,15 +21,6 @@ Bootstrapper::~Bootstrapper()
 
 Bootstrapper::!Bootstrapper()
 {
-	_loadContext->Resolving -= gcnew System::Func<
-		System::Runtime::Loader::AssemblyLoadContext^,
-		System::Reflection::AssemblyName^,
-		System::Reflection::Assembly^>(this, &Bootstrapper::ResolveAssembly);
-}
-
-System::Reflection::Assembly^ Bootstrapper::ResolveAssembly(System::Runtime::Loader::AssemblyLoadContext^ assemblyLoadContext, System::Reflection::AssemblyName^ assemblyName)
-{
-	return LoadAssembly(assemblyName->Name + ".dll");
 }
 
 System::Reflection::Assembly^ Bootstrapper::LoadAssembly(System::String^ fileName)

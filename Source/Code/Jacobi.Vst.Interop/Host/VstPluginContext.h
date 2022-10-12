@@ -1,4 +1,6 @@
 #pragma once
+#using <System.dll>
+#using <System.ObjectModel.dll>
 
 namespace Jacobi {
 namespace Vst {

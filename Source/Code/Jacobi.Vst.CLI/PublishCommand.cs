@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Json;
+// using System.Text.Json;
 
 namespace Jacobi.Vst.CLI
 {
@@ -67,6 +67,8 @@ namespace Jacobi.Vst.CLI
 
         private void CopyDependencies(string depsFile, string deployPath, ProcessorArchitecture processorArchitecture)
         {
+            ConsoleOutput.Progress($"!!NOT Copying dependencies in {depsFile} to: {deployPath}");
+            /*
             ConsoleOutput.Progress($"Copying dependencies to: {deployPath}");
             using var stream = File.OpenRead(depsFile);
             var json = Parse(stream);
@@ -89,6 +91,7 @@ namespace Jacobi.Vst.CLI
                     ConsoleOutput.Warning($"Could not find: {path}");
                 }
             }
+            */
         }
 
         private void PublishPlugin(string pluginPath)
@@ -135,11 +138,11 @@ namespace Jacobi.Vst.CLI
             var files = Directory.GetFiles(DeployBinPath, "Jacobi.Vst.*");
             foreach (var file in files)
             {
-                File.Move(file, Path.Combine(DeployPath, Path.GetFileName(file)), overwrite: true);
+                File.Move(file, Path.Combine(DeployPath, Path.GetFileName(file)));
             }
 
             const string ijwhost = "ijwhost.dll";
-            File.Move(Path.Combine(DeployBinPath, ijwhost), Path.Combine(DeployPath, ijwhost), overwrite: true);
+            File.Move(Path.Combine(DeployBinPath, ijwhost), Path.Combine(DeployPath, ijwhost));
         }
 
         private void PublishHost(string hostPath)
@@ -204,6 +207,7 @@ namespace Jacobi.Vst.CLI
             return null;
         }
 
+        /*
         private static DepsJson Parse(Stream stream)
         {
             var options = new JsonSerializerOptions
@@ -216,5 +220,6 @@ namespace Jacobi.Vst.CLI
             var reader = new StreamReader(stream);
             return JsonSerializer.Deserialize<DepsJson>(reader.ReadToEnd(), options);
         }
+        */
     }
 }

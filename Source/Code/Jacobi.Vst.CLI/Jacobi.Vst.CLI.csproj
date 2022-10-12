@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net6.0</TargetFrameworks>
+    <TargetFrameworks>netframework472</TargetFrameworks>
     <AssemblyName>vstnet</AssemblyName>
     <Version>2.0.2</Version>
     <Authors>Marc Jacobi</Authors>
@@ -19,6 +19,7 @@
     <PackageId>VST.NET2-CLI</PackageId>
     <AssemblyVersion>2.0.3.0</AssemblyVersion>
     <FileVersion>2.0.3.0</FileVersion>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="Exists('../../../../../../_keyfile/Jacobi.snk')">
